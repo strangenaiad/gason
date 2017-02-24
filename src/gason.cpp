@@ -169,13 +169,15 @@ static double string2double(char *s, char **endptr) {
     if (ch == '-')
         ++s;
 
-    int dig = 0;
+    long long dig = 0;
 
-    while (isdigit(*s))
+    while (isdigit(*s) && dig<=99999999999999999ULL )
         dig = (dig<<1) + (dig<<3) + _isdigit[(int)*s++];
 
-
     double result = dig;
+
+    while( isdigit(*s) )
+        result = result*10 + _isdigit[(int)*s++];
 
     if (*s == '.') {
         ++s;
